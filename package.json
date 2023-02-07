@@ -1,0 +1,38 @@
+{
+  "name": "nuxt-tailwind-components",
+  "version": "0.0.1",
+  "description": "A nuxt.js tailwindCSS components package !",
+  "main": "index.js",
+  "peerDependencies": {
+    "pathe": "latest"
+  },
+  "dependencies": {
+    "@tailwindcss/forms": "0.5.3",
+    "@tailwindcss/line-clamp": "0.4.2",
+    "@tailwindcss/typography": "0.5.9",
+    "nuxt-tailwind-heroicons": "^1.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/monarchstudioagency/tw-ui.git"
+  },
+  "keywords": [
+    "Nuxt",
+    "Vue",
+    "NuxtJS",
+    "VueJS",
+    "js",
+    "javascript",
+    "UI",
+    "ui",
+    "tailwind",
+    "css",
+    "tailwindCSS"
+  ],
+  "author": "Monarch Studio",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/monarchstudioagency/tw-ui/issues"
+  },
+  "homepage": "https://github.com/monarchstudioagency/tw-ui#readme"
+}
