@@ -1,31 +1,42 @@
 <template>
-  <div class="shadow rounded-lg border border-neutral-100 bg-white text-left text-neutral-800">
+  <div :class="[
+    {'border border-neutral-200': bordered},
+    {'rounded-lg': rounded},
+    'bg-white text-left text-neutral-800 overflow-x-auto max-w-full']">
     <div class="align-middle inline-block min-w-full">
-      <div :class="['', customClass]">
-        <table class="min-w-full divide-y divide-gray-100 rounded-lg" :id="id" :style="customStyle">
+      <div>
+        <table
+          :class="[
+            {'rounded-lg': rounded},
+            {'divide-y divide-neutral-200': !striped},
+            'min-w-full text-sm'
+            ]" :id="id">
           <thead>
           <tr>
             <th v-for="(h, index) in fields" :key="h.key" scope="col"
                 :class="[
-                      index === 0 ? 'rounded-tl-lg' : '',
-                      index === fields.length - 1 ? 'rounded-tr-lg' : '',
-                      'text-sm px-4 py-3 font-normal text-neutral-500 bg-neutral-50']">
+                      {'rounded-tl-lg' : index === 0 && rounded},
+                      {'rounded-tr-lg' : index === fields.length - 1 && rounded},
+                      'text-xs px-3 py-3 font-medium text-neutral-500 bg-white']">
               {{ h.label }}
             </th>
           </tr>
           </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
+          <tbody :class="[
+            {'divide-y divide-neutral-200': !striped},
+            'bg-white']">
           <tr v-for="(item, index) in items"
               :class="[
-                  cursor ? 'hover:bg-neutral-50 cursor-pointer' : ''
+                  {'bg-neutral-50': !isOdd(index) && striped},
+                  cursor ? 'hover:bg-neutral-100 cursor-pointer' : ''
                   ]"
               @click="$emit('row-click', item)"
               @mouseenter="$emit('row-mouseenter', item)"
               @mouseleave="$emit('row-mouseleave', item)">
             <td :class="[
-                (index === items.length - 1 && i === 0) ? 'rounded-bl-lg' : '',
-                (index === items.length - 1 && i === displayedFieldKeys.length - 1) ? 'rounded-br-lg' : '',
-                'px-4 py-3 whitespace-nowrap'
+                {'rounded-bl-lg': (index === items.length - 1 && i === 0) && rounded},
+                {'rounded-br-lg': (index === items.length - 1 && i === displayedFieldKeys.length - 1) && rounded},
+                'px-3 py-2 whitespace-nowrap'
                 ]" v-for="(key, i) in displayedFieldKeys">
               <slot
                 :name="`cell(${key})`"
@@ -49,17 +60,32 @@ export default {
       type: Array,
       default: []
     },
-    cursor: {
+    rounded: {
       type: Boolean,
       default: true
+    },
+    bordered: {
+      type: Boolean,
+      default: true
+    },
+    striped: {
+      type: Boolean,
+      default: false
+    },
+    cursor: {
+      type: Boolean,
+      default: false
     },
     items: {
       type: Array,
       default: []
     },
-    id: '',
-    customStyle: '',
-    customClass: ''
+    id: ''
+  },
+  methods: {
+    isOdd(num) {
+      return num % 2;
+    }
   },
   computed: {
     displayedFieldKeys() {

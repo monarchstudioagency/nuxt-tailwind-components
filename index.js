@@ -4,7 +4,16 @@ import Vue from 'vue';
 
 const fs = require('fs');
 
-// Utils
+function camelCase(str) {
+    return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
+        return index === 0 ? word.toLowerCase() : word.toUpperCase();
+    }).replace(/\s+/g, '');
+}
+
+function upperFirst(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 if (typeof require.context === 'undefined') {
     require.context = (base = '.', scanSubDirectories = false, regularExpression = /\.js$/) => {
         const files = {};
@@ -37,16 +46,6 @@ if (typeof require.context === 'undefined') {
     };
 }
 
-function camelCase(str) {
-    return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
-        return index === 0 ? word.toLowerCase() : word.toUpperCase();
-    }).replace(/\s+/g, '');
-}
-
-function upperFirst(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
 export default defineNuxtModule({
     hooks: {
         "components:dirs"(dirs) {
@@ -58,16 +57,24 @@ export default defineNuxtModule({
     }
 })
 
-const components = require.context(
-    join(__dirname, 'components'),
-    false,
-    /Tw[A-Z]\w+\.(vue|js)$/
-);
+try {
 
-components.keys().forEach((fileName) => {
-    const componentConfig = components(fileName)
-    const componentName = upperFirst(
-        camelCase(fileName.replace(/^\.\/(.*)\.\w+$/, '$1'))
-    )
-    Vue.component(componentName, componentConfig.default || componentConfig)
-});
+    const components = require.context(
+        join(__dirname, 'components'),
+        false,
+        /Tw[A-Z]\w+\.(vue|js)$/
+    );
+
+    components.keys().forEach((fileName) => {
+        const componentConfig = components(fileName)
+        const componentName = upperFirst(
+            camelCase(fileName.replace(/^\.\/(.*)\.\w+$/, '$1'))
+        )
+        Vue.component(componentName, componentConfig.default || componentConfig)
+    });
+
+} catch (e) {
+
+    console.log(e);
+
+}

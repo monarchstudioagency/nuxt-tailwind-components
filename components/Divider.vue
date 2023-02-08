@@ -1,5 +1,5 @@
 <template>
-  <div :class="['w-full border-t border-gray-200', getSpace]"></div>
+  <div :class="['w-full border-t border-neutral-200', getSpace]"></div>
 </template>
 
 <script>
@@ -13,7 +13,23 @@ export default {
   },
   computed: {
     getSpace() {
-      return `my-${this.space}`;
+      switch (this.space) {
+        case "1": {
+          return "my-1";
+        }
+        case "2": {
+          return "my-2";
+        }
+        case "3": {
+          return "my-3";
+        }
+        case "4": {
+          return "my-4";
+        }
+        case "5": {
+          return "my-5";
+        }
+      }
     }
   }
 }

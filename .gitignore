@@ -8,3 +8,4 @@ node_modules
 .idea
 .env
 dist
+package-lock.json

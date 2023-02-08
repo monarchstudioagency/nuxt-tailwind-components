@@ -1,27 +1,19 @@
 <template>
-  <div class="relative">
-    <span style="width: fit-content;" :class="['z-10 text-xs px-2 py-1 absolute rounded shadow-md text-center', hidden, positionClass, typeClass]" role="tooltip">
-      {{ content }}
+  <div class="group relative">
+    <span :class="[
+        getPositionClass,
+        'shadow-lg max-w-md transform text-xs text-neutral-600 border border-neutral-200 font-medium bg-white px-2.5 py-1.5 rounded-md hidden group-hover:block absolute text-center z-50']">
+      {{ text }}
     </span>
-    <span @mouseenter="mouseEnter" @mouseleave="mouseLeave" aria-describedby="tooltip">
-      <slot></slot>
-    </span>
+    <slot/>
   </div>
 </template>
-
-<style scoped>
-.tooltip-top {
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-</style>
 
 <script>
 export default {
   name: "TwTooltip",
   props: {
-    content: {
+    text: {
       type: String,
       default: false
     },
@@ -29,40 +21,23 @@ export default {
       type: String,
       default: 'top'
     },
-    type: {
+    theme: {
       type: String,
-      default: 'default'
-    }
-  },
-  data() {
-    return {
-      hidden: 'hidden'
+      default: "light"
     }
   },
   computed: {
-    positionClass() {
-      if(this.position === 'top') {
-        return 'tooltip-top';
+    getPositionClass() {
+      switch (this.position) {
+        case "top":
+          return "left-1/2 -translate-x-1/2 -translate-y-full"
+        case "right":
+          return "top-1/2 -translate-y-1/2 translate-x-full -right-2"
+        case "left":
+          return "top-1/2 -translate-y-1/2 -translate-x-full -left-2"
+        case "bottom":
+          return "left-1/2 -translate-x-1/2 translate-y-full"
       }
-    },
-    typeClass() {
-      if(this.type === 'default') {
-        return "bg-gray-700 text-gray-100"
-      }
-      if(this.type === 'success') {
-        return "bg-emerald-500 text-white"
-      }
-      if(this.type === 'warning') {
-        return "bg-orange-500 text-white"
-      }
-    }
-  },
-  methods: {
-    mouseEnter() {
-      this.hidden = '';
-    },
-    mouseLeave() {
-      this.hidden = 'hidden';
     }
   }
 }
