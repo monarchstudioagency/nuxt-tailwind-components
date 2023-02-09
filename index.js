@@ -50,31 +50,22 @@ export default defineNuxtModule({
     hooks: {
         "components:dirs"(dirs) {
             dirs.push({
-                path: join(__dirname, 'components'),
-                prefix: 'tw'
+                path: join(__dirname, 'components')
             });
         }
     }
 })
 
-try {
+const components = require.context(
+    join(__dirname, 'components'),
+    false,
+    /[A-Z]\w+\.(vue|js)$/
+);
 
-    const components = require.context(
-        join(__dirname, 'components'),
-        false,
-        /Tw[A-Z]\w+\.(vue|js)$/
-    );
-
-    components.keys().forEach((fileName) => {
-        const componentConfig = components(fileName)
-        const componentName = upperFirst(
-            camelCase(fileName.replace(/^\.\/(.*)\.\w+$/, '$1'))
-        )
-        Vue.component(componentName, componentConfig.default || componentConfig)
-    });
-
-} catch (e) {
-
-    console.log(e);
-
-}
+components.keys().forEach((fileName) => {
+    const componentConfig = components(fileName)
+    const componentName = upperFirst(
+        camelCase(fileName.replace(/^\.\/(.*)\.\w+$/, '$1'))
+    )
+    Vue.component(componentName, componentConfig.default || componentConfig)
+});
