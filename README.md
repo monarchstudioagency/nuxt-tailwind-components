@@ -2,7 +2,7 @@
 
 > **DEVELOPMENT ON GOING : DON'T USE**
 
-Use beautiful [Tailwind CSS](https://tailwindcss.com/) components with your Nuxt project. (Nuxt 2 & Nuxt 3 compatible).
+Use beautiful [Tailwind CSS](https://tailwindcss.com/) components inspired by [Tailwind UI](https://tailwindui.com/) with your Nuxt project. (Nuxt 2 & Nuxt 3 compatible).
 
 ## Tailwind install
 
@@ -84,7 +84,7 @@ Prefix of components is ````<tw-````. You can use it at like :
 <tw-alert title="This is awesome !"/>
 ```
 
-Documentation will be soon available.
+> Documentation will be soon available.
 
 ## And now enjoy ! 🚀
 
