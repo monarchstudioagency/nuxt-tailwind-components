@@ -50,7 +50,8 @@ export default defineNuxtModule({
     hooks: {
         "components:dirs"(dirs) {
             dirs.push({
-                path: join(__dirname, 'components')
+                path: join(__dirname, 'components'),
+                prefix: 'tw'
             });
         }
     }
