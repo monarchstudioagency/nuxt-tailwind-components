@@ -59,7 +59,7 @@ export default defineNuxtModule({
 const components = require.context(
     join(__dirname, 'components'),
     false,
-    /[A-Z]\w+\.(vue|js)$/
+    /^(.*\.(?!(vue|js)$))?[^.]*$/i
 );
 
 components.keys().forEach((fileName) => {
