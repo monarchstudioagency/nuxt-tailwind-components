@@ -1,6 +1,6 @@
 {
   "name": "nuxt-tailwind-components",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "[DEV VERSION] - A Nuxt.js Tailwind CSS components package",
   "main": "index.js",
   "peerDependencies": {
